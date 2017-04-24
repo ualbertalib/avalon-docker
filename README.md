@@ -11,6 +11,8 @@ The project contains the Dockerfiles for all the necessary components of [Avalon
 3. From inside the avalon-docker directory
   * `docker-compose pull` to get the prebuilt images from [Dockerhub](dockerhub.com)
   * `docker-compose up` to stand up the stack
+4. Rebuild a few of the components with local changes:
+  * `docker-compose build avalon fedora solr db`
 
 ### On a Mac
 * Install [Docker Toolbox for OS X](https://www.docker.com/products/docker-toolbox)
