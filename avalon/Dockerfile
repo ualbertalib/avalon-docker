@@ -15,19 +15,23 @@ USER        app
 RUN         git clone --branch=${AVALON_BRANCH} --depth=1 ${AVALON_REPO}
 ADD         Gemfile.local /home/app/avalon/
 ADD         config/* /home/app/avalon/config/
-ARG         RAILS_ENV=production
+ARG         RAILS_ENV=development
 RUN         cd avalon && \
               bundle config build.nokogiri --use-system-libraries && \
-              bundle install --path=vendor/gems --without development test && \
+              bundle install --path=vendor/gems && \
               cd ..
 ARG         BASE_URL
 ARG         DATABASE_URL
 ARG         SECRET_KEY_BASE
 RUN         cd avalon && \
               mkdir -p tmp/pids && \
-              bundle exec rake assets:precompile && \
               cd ..
 USER        root
+RUN         touch /home/app/avalon/log/development.log
+RUN         touch /home/app/avalon/log/delayed_job.log
+RUN         chmod 1777 /home/app/avalon/tmp
+RUN         mkdir /home/app/avalon/tmp/cache
+RUN         chmod 1777 /home/app/avalon/tmp/cache
 RUN         chown -R app:app /home/app/avalon
 ADD         ./avalon.conf /etc/nginx/sites-available/avalon
 ADD         ./nginx_env.conf /etc/nginx/main.d/env.conf

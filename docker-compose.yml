@@ -108,7 +108,7 @@ services:
       - MATTERHORN_URL=http://matterhorn_system_account:CHANGE_ME@matterhorn:8080/
       - MEDIA_PATH=/masterfiles
       - MEDIAINFO_PATH=/usr/bin/mediainfo
-      - RAILS_ENV=production
+      - RAILS_ENV=development
       - REDIS_SERVER=redis:6379
       - SMTP_ADDRESS
       - SMTP_AUTHENTICATION
