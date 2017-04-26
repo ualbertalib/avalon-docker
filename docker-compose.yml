@@ -88,6 +88,9 @@ services:
       - solr
       - redis
     environment:
+      - AVALON_SRC=../avalon
+      - APP_UID
+      - APP_GID
       - APP_NAME
       - SECRET_KEY_BASE
       - ASSET_HOST
@@ -133,5 +136,6 @@ services:
     volumes:
       - ./masterfiles:/masterfiles
       - ./gems:/gems
+      - ${AVALON_SRC}:/home/app/avalon
     ports:
       - "80:80"
