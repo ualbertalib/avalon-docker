@@ -5,6 +5,19 @@ The project contains the Dockerfiles for all the necessary components of [Avalon
 1. Clone this Repo and checkout the desired branch
 2. Copy dotenv.example to .env and fill in the passwords and Rails secrect key base.
 
+## Important U of A things ...
+
+This implementation runs in rails development mode and reads the avalon source code
+from the host file system.
+
+1. Clone the U of A Avalon source. For most ease of use, do it in a way so that
+   both the 'avalon-docker' and the 'avalon' checkout are in the same directory, next to each other.
+   Alternatively, you can set the directory by setting AVALON_SRC in the .env file.
+2. Set the values of APP_UID and APP_GID in .env. This will prevent docker from changing
+   the ownership of files in your avalon source code in the host machine. You can find out
+   your UID by running "id -u", GID by running "id -g" (on Linux, these are usually
+   numbers close to 1000, and likely the same number for both).
+
 ### On Linux
 1. Install [Docker](https://docs.docker.com/engine/installation/linux/centos/)
 2. Install [Docker-Compose](https://docs.docker.com/compose/install/)
