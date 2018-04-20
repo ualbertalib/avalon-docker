@@ -39,6 +39,8 @@ services:
       context: ./solr
       args:
         - AVALON_BRANCH
+    volumes:
+      - solr:/var/lib/jetty/solr/avalon
     ports:
       - "8983:8080"
   matterhorn:

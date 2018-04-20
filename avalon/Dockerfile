@@ -1,5 +1,7 @@
-FROM        phusion/passenger-ruby22
+FROM        phusion/passenger-ruby24
 MAINTAINER  Michael B. Klein <michael.klein@northwestern.edu>
+RUN         gem uninstall -i /usr/local/rvm/gems/ruby-2.4.4@global bundler
+RUN         gem install bundler --version 1.14.6
 RUN         apt-get update && apt-get upgrade -y
 RUN         apt-get install -y mediainfo ffmpeg x264 cmake pkg-config lsof sendmail yaz libyaz4-dev unzip default-jre-headless
 RUN         apt-get clean

@@ -6,14 +6,19 @@ ENV         SOLR_HOME ${JETTY_BASE}/solr
 ARG         AVALON_BRANCH=master
 
 ADD         http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/${SOLR}.tgz /tmp/${SOLR}.tgz
+USER        root
 RUN         cd /tmp && tar xzf ${SOLR}.tgz
+USER        jetty
 RUN         mkdir -p ${SOLR_HOME}/avalon ${SOLR_HOME}/lib/contrib
 RUN         cp /tmp/${SOLR}/dist/${SOLR}.war ${JETTY_BASE}/webapps/solr.war && \
             cp /tmp/${SOLR}/dist/solr-analysis-extras-${SOLR_VERSION}.jar ${SOLR_HOME}/lib/ && \
             cp -r /tmp/${SOLR}/contrib/analysis-extras ${SOLR_HOME}/lib/contrib/
 ADD         solr.xml ${SOLR_HOME}
 ADD         solr-context.xml ${JETTY_BASE}/contexts
+USER        root
 RUN         rm -rf /tmp/${SOLR}*
+USER        jetty
 ADD         https://raw.githubusercontent.com/ualbertalib/avalon/${AVALON_BRANCH}/solr_conf/conf/schema.xml ${SOLR_HOME}/avalon/conf/schema.xml
 ADD         https://raw.githubusercontent.com/ualbertalib/avalon/${AVALON_BRANCH}/solr_conf/conf/solrconfig.xml ${SOLR_HOME}/avalon/conf/solrconfig.xml
+USER        root
 RUN         chown -R jetty:jetty ${JETTY_BASE}
